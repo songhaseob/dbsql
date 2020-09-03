@@ -159,7 +159,7 @@ sql ||, CONCAT 함수 ==> 결합 연산
     SELECT CONCAT(CONCAT(CONCAT('SELECT * FROM' ,' '), table_name), ';') AS query
     FROM user_tables; 
     
-    SELECT 'SELELCT * FROM ' || table_name || ';' query
+    SELECT 'SELELCT * FROM ' || table_name || ';' query 
     FROM user_tables;
     
     
