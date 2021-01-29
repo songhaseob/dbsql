@@ -31,6 +31,8 @@ SQL : 실행에 대한 순서가 없다
       조인할 테이블에서 대해서 FROM 절에 기술한 순으로
       테이블을 읽지 않음.
       FROM customer, cycle, product ==> 오라클에서는 produc 테이블부터 읽을 수도 있다.
+1. 정답 조회하는 쿼리 작성
+2. SQL에 불필요한 부분이 없는지 점검
 join5
 SELECT customer.CID, customer.cnm, cycle.pid, product.pnm,cycle.DAY, cycle.cnt
 FROM customer JOIN cycle ON(customer.cid = cycle.cid)
@@ -44,8 +46,6 @@ FROM cycle y JOIN customer c ON (y.cid = c.cid)
 GROUP BY y.cid, c.cnm, y.pid, p.pnm, y.cnt
 ORDER BY c.cnm;
 
-SELECT *
-FROM cycle;
 
 join 7 
 SELECT  y.pid, p.pnm, sum(y.cnt) cnt
@@ -53,6 +53,7 @@ FROM cycle y JOIN customer c ON ( y.cid = c.cid)
              JOIN product p ON (y.pid = p.pid)
 GROUP BY y.pid, p.pnm
 ORDER BY p.pnm;
+
 
 join8
 SELECT regions.region_id, regions.region_name, countries.country_name
@@ -86,13 +87,10 @@ SELECT employees.employee_id, CONCAT(first_name,last_name) name, jobs.job_id,job
 FROM jobs JOIN employees ON (jobs.job_id = employees.job_id); 
 
 join13
-SELECT employees.manager_id mgr_id, CONCAT(first_name,last_name) mgr_name, 
-employees.employee_id,CONCAT(first_name,email) name, employees.job_id, jobs.job_title
-FROM jobs JOIN employees ON (jobs.job_id = employees.job_id);
-
-SELECT employees.manager_id mgr_id, CONCAT(first_name,last_name) mgr_name, 
-employees.employee_id,CONCAT(first_name,email) name, employees.job_id, jobs.job_title
-FROM  jobs  RIGHT OUTER JOIN employees ON (jobs.job_id = employees.job_id);
+SELECT e.manager_id mgr_id, CONCAT(m.first_name, m.last_name) mgr_name, 
+        e.employee_id, CONCAT(e.first_name, e.last_name) name, e.job_id, job_title
+FROM employees e JOIN employees m ON (e.manager_id = m.employee_id)
+                 JOIN jobs ON (e.job_id = jobs.job_id);
 
 
 
@@ -182,6 +180,15 @@ SELECT p.pid, p.Pnm, :cid cid, c.day, c.cnt
 FROM product p, cycle c
 WHERE p.pid = c.pid(+)
   AND C.CID(+) = 1;
+
+outerjoin5]
+SELECT product.PID, pnm, NVL(cycle.cid,1) cid,NVL(cnm,'brown')cnm, NVL(day,0) day, NVL(cnt,0)cnt
+FROM product LEFT OUTER JOIN cycle ON 
+    (cycle.pid = product.pid AND cid =1)
+    LEFT OUTER JOIN customer ON (customer.cid = cycle.cid)
+ORDER BY product.pid DESC, DAY DESC;
+  
+
   
   
 INNER JOIN : 조인이 성공하는 데이터만 조회가 되는 조인 방식

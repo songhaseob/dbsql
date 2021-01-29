@@ -90,8 +90,8 @@ END
 
 emp 테이블에서 job 컬럼의 값이 
     'SALESMAN'이면 sal 값에 5% 인상한 급여를 반환 sla * 1.05
-    'MANAGER'이면 sal 값에 5% 인상한 급여를 반환 sla * 1.10
-    'PRESIDENT'이면 sal 값에 5% 인상한 급여를 반환 sla * 1.20
+    'MANAGER'이면 sal 값에 10% 인상한 급여를 반환 sla * 1.10
+    'PRESIDENT'이면 sal 값에 20% 인상한 급여를 반환 sla * 1.20
     그밖에 직군('CLERK', 'ANALYS')은 sal 값 그대로 반환
 
 CASE절을 이용 새롭게 계산한 sal_b

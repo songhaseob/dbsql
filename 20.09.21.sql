@@ -111,11 +111,21 @@ SELECT *
 FROM user_constraints
 WHERE table_name IN ('EMP','DEPT');
 
-ALTER TABLE dept ADD CONSTRAINT pk_dept PRIMARY KEY(dnmae);
+SELECT *
+FROM dept;
 
-ALTER TABLE emp ADD CONSTRAINT pk_emp PRIMARY KEY(dname);
+DELETE dept
+WHERE deptno = 90;
 
-ALTER TABLE emp ADD CONSTRAINT fK_emp_dept FOREIGN KEY (deptno) REFERENCES dept (deptno);
+
+
+ALTER TABLE emp ADD CONSTRAINT pk_emp PRIMARY KEY(empno);
+
+ALTER TABLE emp ADD CONSTRAINT fK_emp_emp FOREIGN KEY (mgr) REFERENCES emp (empno);
+
+ALTER TABLE dept ADD CONSTRAINT fK_emp_dept FOREIGN KEY (deptno) REFERENCES dept (deptno);
+
+DESC emp;
 
 
 VIEW : view는 쿼리이다 (VIEW 테이블은 잘못된 표현)

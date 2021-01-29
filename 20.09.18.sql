@@ -416,6 +416,9 @@ FROM dept_test;
 지금까지는 TABLE 생성, 삭제 
 테이블 변경
 1. 새로운 컬럼을 추가
+
+
+
 2. 기존에 존재하는 컬럼의 변경(이름, 데이터 타입)
    ** 데이터 타입의 경우는 이미 데이터가 존재하면 수정이 불가능 하다고 보면 됨.
    동일한 데이터 타입으로 사이즈를 늘리는 경우는 상관 없음
@@ -486,3 +489,8 @@ ALTER TABLE emp_test ADD CONSTRAINT PK_EMP_TEST PRIMARY KEY (empno);
    참조하는 FOREIGN KEY 제약 조건 추가
 ALTER TABLE emp_test ADD CONSTRAINT PK_emp_test_dept_test FOREIGN KEY (deptno) REFERENCES dept_test (deptno);
 
+
+
+
+SELECT *
+FROM customer;

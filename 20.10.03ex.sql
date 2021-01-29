@@ -38,7 +38,7 @@ SELECT mem_id,mem_name
 FROM member
 WHERE mem_name LIKE '신%';
 
-SELECT mem_id,mem_name
+SELECT mem_id, mem_name
 FROM member
 WHERE mem_name LIKE '%이%';
 

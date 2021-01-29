@@ -62,6 +62,7 @@ NULL : 아직 모르는 값
 800 + NULL = NULL
 800 + 0 = 800
 
+===================
 emp 테이블 컬럼 정리
 1. empno : 사원번호
 2. ename : 사원이름
@@ -71,6 +72,7 @@ emp 테이블 컬럼 정리
 6. sal : 급여
 7. comm : 성과급
 8. deptno : 부서번호
+=====================
 
 emp 테이블에서 NULL값을 확인
 
@@ -162,4 +164,16 @@ sql ||, CONCAT 함수 ==> 결합 연산
     SELECT 'SELELCT * FROM ' || table_name || ';' query 
     FROM user_tables;
     
+    SELECT empno "test"
+    FROM emp;
+    
+    
+    테이블의 구조(컬럼명, 데이터타입) 확인하는 방법
+    1. DESC 테이블명 : DESCRIEE
+    2. 컬럼 이름만 알 수 있는 방법(데이터 타입은 유추)
+       SELECT *
+       FROM 테이블명;
+    3. 툴에서 제공해주는 메뉴 이용
+        접속정보 - 테이블 - 확인하고자하는 테이블 클릭
+  
     

@@ -59,6 +59,7 @@ SELECT MONTHS_BETWEEN( TO_DATE('20200915', 'YYYYMMDD'), TO_DATE('20200808', 'YYY
        TO_DATE( '01', 'DD')
 FROM dual;
 
+
 SYSDATE가 속할 월의 첫날 짜 구하기
        (2020년 9월 8일 ==> 2020년 9월 1일의 날짜 타입으로)
        

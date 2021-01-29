@@ -234,7 +234,7 @@ AND ename LIKE 'C%';
 emp 테이블에는 현재 인덱스가 3개 존재
 dept 테이블의 deptno 컬럼에 UNIQUE 인덱스 생성
 emp 테이블에는 현재 인덱스가 3개 존재
-DROP INDEX idx_emp_n_02;
+DROP INDEX idx_emp_n_01;
 ALTER TABLE emp ADD CONSTRAINT pk_emp PRIMARY KEY (empno);
 ALTER TABLE dept ADD CONSTRAINT pk_dept PRIMARY KEY (deptno); 
 
@@ -242,7 +242,7 @@ DELETE dept WHERE deptno >= 90;
 COMMIT;
 
 SELECT *
-FROM dept;
+FROM emp;
 
 pk_emp : empno
 idx_emp_n_01 : empno

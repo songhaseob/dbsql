@@ -109,6 +109,14 @@ WHERE 0 = (SELECT COUNT(*)
          WHERE deptno = dept_test.deptno);
          
 SUB_a3] 과제
+UPDATE emp_test 
+SET sal = sal+200   
+WHERE sal <(SELECT AVG(sal) FROM emp_test WHERE deptno = emp_test.deptno);
+             
+
+            
+SELECT *
+FROM emp_test;
 
 
 

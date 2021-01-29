@@ -26,7 +26,24 @@ START WITH deptcd = 'dept0_00_0'
 CONNECT BY PRIOR p_deptcd = deptcd;
 
 SELECT *
-FROM h_sum;
+FROM dept_h;
+
+
+
+SELECT deptcd, LPAD(' ' , (LEVEL-1)*3 ) || deptnm deptnm , P_DEPTCD 
+FROM dept_h
+START WITH deptcd = 'dept0' 
+CONNECT BY = P_deptcd = PRIOR deptcd;
+
+
+
+
+
+
+
+
+
+
 
 h4]
 SELECT LPAD(' ', (LEVEL-1)*3) || s_id s_id, VALUE
@@ -200,7 +217,7 @@ SUM(col), MIN(col1), MAX(col), COUNT(col|*), AVG(col)
 사원번호, 사원이름, 소속부서번호, 소속된 부서의 사원수
 ana2]
 SELECT empno, ename,sal, deptno, ROUND(AVG(sal) OVER (PARTITION BY deptno),2) AVG_SAL 
-FROM emp;
+FROM emp; 
 ana3]
 SELECT empno, ename,sal, deptno, MAX(sal) OVER (PARTITION BY deptno) MAX_SAL
 FROM emp;
@@ -213,5 +230,17 @@ SELECT deptno, ROUND(AVG(sal),2) avg_sal
 FROM emp
 GROUP BY deptno;
 
+SELECT *
+FROM emp;
+
+DESC emp;
+
+CREATE emp_test3 AS
+SELECT empno,ename
+FROM emp;
 
 
+CREATE TABLE emp_test AS
+SELECT empno, ename
+FROM emp
+WHERE 1=2; ---------거짓 1=1 참

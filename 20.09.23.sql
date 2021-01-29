@@ -70,6 +70,53 @@ CREATE INDEX idx_emp_03 ON emp (deptno, sal, mgr, hiredate);
 가급적이면 컬럼에 값이 NULL이 들어오지 않을 경우는 NOT NULL 제약을 적극적으로 활용
 ==>오라클 입장에서 실행계획을 세우는데 도움이 된다
 
+DROP INDEX idx_dept_u_03;
+CREATE UNIQUE INDEX idx_emp_u_01 ON emp (empno,deptno);
+CREATE INDEX idx_emp_02 ON emp(deptno,sal);
+CREATE UNIQUE INDEX idx_dept_u_03 ON dept (deptno, loc);
+
+1. --(emp)empno(=)
+2. (emp)empno(LIKE) , (emp)deptno(=)
+3. (dept)deptno(=)
+4. (emp)deptno(=), (emp)sal(BETWEEN)
+5. (emp)deptno(=), (dept)deptno(=), (dept)loc(=)
+
+EXPLAIN PLAN FOR
+SELECT *
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+AND e.deptno = :deptno
+AND d.loc = :loc;
+
+
+EXPLAIN PLAN FOR
+SELECT *
+FROM emp e, dept d
+WHERE e.deptno = d.deptno
+AND e.deptno = :deptno
+AND e.empno LIKE :empno || '%';
+
+
+
+
+SELECT *
+FROM dept d
+WHERE e.deptno = d.deptno
+AND e.deptno = :deptno
+AND d.loc = :loc;
+
+SELECT *
+FROM TABLE(dbms_xplan.display);
+
+EXPLAIN PLAN FOR
+SELECT *
+FROM emp
+WHERE empno = :empno;
+
+SELECT *
+FROM TABLE(dbms_xplan.display);
+
+
 synonym : 동의어
 오라클 객체에 별칭을 생성한 객체
 오라클 객체를 짧은 이름으로 지어줄 수 있다

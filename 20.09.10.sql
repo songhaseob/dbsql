@@ -134,11 +134,11 @@ FROM emp
 GROUP BY deptno
 ORDER BY dname;
 ==============================================grp4=============================================================================
-SELECT TO_CHAR(hiredate,'yyyymm') HIRE_YYYYMM ,COUNT(*)             ------------문자열로바꿔준다
+SELECT TO_CHAR(hiredate,'yyyymm') HIRE_YYYYMM ,COUNT(*)             
 FROM emp
 GROUP BY TO_CHAR(hiredate,'yyyymm');
 ================================================================================================================================
-========================grp5===========================================================================
+========================grp5====================================================================================================
 SELECT TO_CHAR(hiredate,'yyyy') HIRE_YYYYMM ,COUNT(*)             
 FROM emp
 GROUP BY TO_CHAR(hiredate,'yyyy');
@@ -146,15 +146,73 @@ GROUP BY TO_CHAR(hiredate,'yyyy');
 ==============================grp6==============================================================================================
 SELECT COUNT('deptno') CNT
 FROM dept;
+
+SELECT COUNT(*)     ----------선생님 답
+FROM dept;
 ================================================================================================================================
 ====================================grp7========================================================================================
-SELECT *
-FROM emp;
+직원이 속한 부서의 개수를 구하기
+1. 부서가 몇개 존재하는지?? ==> 3행
+SELECT COUNT(*)   -----------선생님답
+FROM
+(SELECT deptno
+FROM emp
+GROUP BY deptno) a;
 
 
-
-
+SELECT COUNT(COUNT(deptno)) cnt
+from emp
+GROUP BY deptno;
 ================================================================================================================================
+======================================join0=====================================================================================
+SELECT emp.empno, emp.ename, dept.deptno, dept.dname
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+ORDER BY dept.deptno
+
+SELECT emp.empno, emp.ename, emp.deptno, dept.dname--------------선생님답
+FROM emp JOIN dept ON (emp.deptno = dept.deptno)
+ORDER BY emp.deptno;
+================================================================================================================================
+===========================join1================================================================================================
+SELECT emp.empno, emp.ename, dept.deptno, dept.dname
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+  AND emp.deptno IN(10,30)            
+  AND dept.deptno IN (10,30)
+ORDER BY emp.deptno;
+  
+ 
+================================================================================================================================
+================================================join2===========================================================================
+SELECT emp.empno, emp.ename, emp.sal, dept.deptno, dept.dname 
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+AND emp.sal > 2500;
+ORDER BY emp.deptno;
+================================================================================================================================
+====================================join3=======================================================================================
+SELECT emp.empno, emp.ename, emp.sal, dept.deptno, dept.dname 
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+AND emp.sal > 2500 AND emp.empno > 7600;
+================================================================================================================================
+==============================join4=============================================================================================
+SELECT emp.empno, emp.ename, emp.sal, dept.deptno, dept.dname 
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+AND emp.sal > 2500 AND emp.empno > 7600 AND dept.dname = 'RESEARCH'
+ORDER BY emp.deptno;
+================================================================================================================================
+select *
+from emp;
+
+WHERE emp.sal >= losal
+      AND sal <= hisal;
+
+SELECT *
+FROM dept;
+
 
 ***************WHERE + JOIN SELECT SQL의 모든 것 *****************
 JOIN : 다른 테이블과 연결하여 데이터를 확장하는 문법
@@ -202,7 +260,7 @@ ORA-00918: column ambiguously defined
 deptno 컬럼은 emp, dept 테이블 양쪽 모두에 존재한다
 
 
-SELECT *
+SELECT emp.empno, emp.ename, dept.deptno, dept.dname
 FROM emp, dept
 WHERE emp.deptno = dept.deptno;
 

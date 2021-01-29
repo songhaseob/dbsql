@@ -1,0 +1,285 @@
+실습select1
+SELECT *
+FROM lprod;
+
+SELECT buyer_id, buyer_name
+FROM buyer;
+
+SELECT *
+FROM cart;
+
+SELECT mem_id, mem_pass, mem_name
+FROM member;
+
+실습select2
+SELECT prod_id prod_name, prod_name name
+FROM prod;
+
+SELECT lprod_gu gu, lprod_nm nm
+FROM lprod;
+
+SELECT buyer_id 바이어아이디, buyer_name 이름
+FROM buyer;
+
+sel_con1
+SELECT 'SELECT * FROM' || table_name || ';' query 
+FROM user_tables;
+
+where1
+SELECT ename, hiredate
+FROM emp
+WHERE hiredate BETWEEN TO_DATE('19820101','yyyymmdd') AND 
+                       TO_DATE('19830101','YYYYMMDD');
+                       
+where2
+SELECT ename, hiredate
+FROM emp
+WHERE hiredate >= TO_DATE('19820101','yyyymmdd') AND
+      hiredate <= TO_DATE('19830101','YYYYMMDD');
+
+where3
+SELECT userid 아이디, usernm 이름, alias 별명
+FROM users
+WHERE userid IN ('brown', 'cony', 'sally');
+
+where4
+SELECT mem_id, mem_name
+FROM member
+WHERE mem_name LIKE '신%';
+
+where5
+SELECT mem_id, mem_name
+FROM member
+WHERE mem_name LIKE '%이%';
+
+where6
+SELECT *  
+FROM emp
+WHERE comm IS NOT NULL;
+
+where7
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' AND hiredate >= TO_DATE('19810601','yyyymmdd');
+
+where8
+SELECT *
+FROM emp
+WHERE deptno != '10' AND hiredate >= TO_DATE('19810601','yyyymmdd');
+
+where9
+SELECT *
+FROM emp
+WHERE deptno NOT IN('10') AND hiredate >= TO_DATE('19810601', 'yyyymmdd');
+
+where10
+SELECT *
+FROM emp
+WHERE deptno NOT IN('10') AND hiredate >= TO_DATE('19810601','yyyymmdd');
+
+where11
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' OR hiredate >= TO_DATE('19810601','yyyymmdd');
+
+where12
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' OR empno LIKE '78%%';
+
+where13
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' OR empno >= '7800' AND empno <= 7899; 
+
+where14
+SELECT *
+FROM emp
+WHERE job='SALESMAN' OR empno LIKE '78%' AND hiredate >= TO_DATE('19810601','yyyymmdd');
+
+orderby1
+SELECT *
+FROM dept
+ORDER BY DNAME;
+
+orderby2
+SELECT *
+FROM dept
+ORDER BY LOC DESC;
+
+orderby3
+SELECT *
+FROM emp
+WHERE mgr IS NOT NULL
+ORDER BY job, empno DESC;
+
+orderby4
+SELECT *
+FROM emp
+WHERE deptno IN (10, 30) AND sal > 1500
+ORDER BY ename DESC;
+
+row1
+SELECT ROWNUM rn, empno, ename
+FROM emp
+WHERE ROWNUM <= 10;
+
+row2
+SELECT *
+FROM (SELECT ROWNUM rn, empno, ename
+FROM  emp )
+WHERE rn >= 11 AND rn <= 20;
+
+row3
+SELECT *
+FROM
+(SELECT ROWNUM rn, empno, ename
+FROM
+    (SELECT empno, ename
+    FROM emp
+    ORDER BY ename ASC))
+WHERE rn > 10 AND rn <= 20;
+
+fn1
+SELECT TO_DATE('20191231','YYYYMMDD') LASTDAY,
+       TO_DATE('20191231','YYYYMMDD') -5 LASTDAY_BEFORES,
+       SYSDATE NOW,
+       SYSDATE -3 NOW_BEFORE3
+FROM dual;
+
+fn2
+SELECT TO_CHAR(SYSDATE, 'yyyy-mm-dd') DT_DASH,
+       TO_CHAR(SYSDATE, 'yyyy-mm-dd hh24-mi-ss') DT_DASH_WITH_TIME,
+       TO_CHAR(SYSDATE, 'dd-mm-yyyy') DT_DO_MM_YYYY
+FROM dual;
+
+fn3
+SELECT TO_CHAR('201912','yyyymmdd') RARAM
+FROM dual;
+SELECT TO_CHAR(LAST_DAY(TO_DATE( :YYYYMM, 'YYYYMM')), 'DD')
+FROM dual;
+
+fn4
+SELECT empno, ename, mgr,
+       NVL(MGR, 9999) MGR_N,
+       NVL2(MGR,MGR,9999) MGR_N_1,
+       COALESCE(MGR, 9999) MGR_N_2
+FROM emp;
+
+fn5
+SELECT userid,
+       usernm,
+       reg_dt,
+       NVL(reg_dt,SYSDATE) n_reg_dit 
+FROM users
+WHERE userid != 'brown';
+
+cond1
+SELECT empno, ename,
+    CASE
+        WHEN deptno = 10 THEN 'ACCOUNTING' 
+        WHEN deptno = 20 THEN 'RESEARCH'
+        WHEN deptno = 30 THEN 'SALES'                       
+        WHEN deptno = 40 THEN 'OPERATIONS'
+        ELSE 'DDIT'
+        END dname
+FROM emp;
+
+SELECT empno, ename,
+    DECODE(deptno,
+                10, 'ACCOUNTING',
+                20, 'RESEARCH',
+                30, 'SALES',                         
+                40, 'OPERATIONS',
+                'DDIT') dname
+FROM emp;
+
+cond2
+SELECT EMPNO, ENAME, HIREDATE, 
+    CASE
+        WHEN MOD(TO_CHAR(hiredate, 'yy'),2) = MOD(TO_CHAR(sysdate, 'yy'),2) THEN '건강검진 대상'
+        ELSE '건강검진 비대상'
+        END CONTACT_TO_DOCTOR
+FROM emp;
+
+cond3
+SELECT userid, usernm, reg_dt, 
+    CASE
+        WHEN MOD(TO_CHAR(reg_dt, 'yy'),2) = MOD(TO_CHAR(reg_dt, 'yy'),1) THEN '건강검진 비대상'
+        ELSE '건강검진 대상'
+        END CONTACTTODOCTOR
+FROM users;
+
+grp1
+SELECT MAX(sal) MAX_SAL, 
+       MIN(sal) MIN_SAL, 
+       ROUND(AVG(sal),2) AVG_SAL,
+       SUM(sal) SUM_SAL, 
+       COUNT(sal) COUNT_SAL,
+       COUNT(mgr) COUNT_MGR, 
+       COUNT(*) COUNT_ALL 
+FROM emp;
+
+grp2
+SELECT deptno,
+       MAX(sal) MAX_SAL, 
+       MIN(sal) MIN_SAL, 
+       ROUND(AVG(sal),2) AVG_SAL,
+       SUM(sal) SUM_SAL, 
+       COUNT(sal) COUNT_SAL,
+       COUNT(mgr) COUNT_MGR, 
+       COUNT(*) COUNT_ALL 
+FROM emp
+GROUP BY deptno;
+
+grp3
+SELECT CASE
+       WHEN deptno = 10 THEN 'ACCOUNTING' 
+       WHEN deptno = 20 THEN 'RESEARCH'
+       WHEN deptno = 30 THEN 'SALES'                       
+       END dname,
+       MAX(sal) MAX_SAL, 
+       MIN(sal) MIN_SAL, 
+       ROUND(AVG(sal),2) AVG_SAL,
+       SUM(sal) SUM_SAL, 
+       COUNT(sal) COUNT_SAL,
+       COUNT(mgr) COUNT_MGR, 
+       COUNT(*) COUNT_ALL 
+FROM emp
+GROUP BY deptno
+ORDER BY dname;
+
+grp4
+SELECT TO_CHAR(hiredate,'yyyymm') HIRE_YYYYMM ,COUNT(*)             
+FROM emp
+GROUP BY TO_CHAR(hiredate,'yyyymm');
+
+grp5
+SELECT TO_CHAR(hiredate,'yyyy') HIRE_YYYY ,COUNT(*)             
+FROM emp
+GROUP BY TO_CHAR(hiredate,'yyyy');
+
+grp6
+SELECT COUNT(*) CNT    
+FROM dept;
+
+grp7
+SELECT COUNT(*)   -----------선생님답
+FROM
+(SELECT deptno
+FROM emp
+GROUP BY deptno) a;
+
+
+SELECT COUNT(COUNT(deptno)) cnt
+from emp
+GROUP BY deptno;
+
+
+
+
+
+
+
+
+

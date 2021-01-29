@@ -53,11 +53,21 @@ AND pid  IN (SELECT Pid
 
 sub7]--과제
 SELECT customer.cnm, cycle.pid, product.pnm, cycle.day, cycle.cnt
-FROM customer JOIN cycle ON(customer.cid = cycle.cid)
+FROM customer JOIN cycle ON(customer.cid = cycle.cid) --------내꺼갈아답.......후
               JOIN product ON(cycle.pid = product.pid) 
 WHERE customer.cnm IN('brown')
       AND cycle.pid IN(100); 
 
+SELECT cycle.cid, customer.cnm, cycle.pid, product.pnm, cycle.day, cycle.cnt
+FROM cycle, customer, product                     --선생님답
+WHERE cycle.cid = 1
+AND cycle.cid = customer.cid
+AND cycle.pid = product.pid
+AND cycle.pid IN (SELECT pid
+                FROM cycle
+                WHERE cid = 2);
+
+             
 
 
 

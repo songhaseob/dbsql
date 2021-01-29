@@ -40,7 +40,7 @@ row_2]    11~20
 
 SELECT *
 FROM (SELECT ROWNUM rn, empno, ename
-    FROM  emp )
+FROM  emp )
 WHERE rn >= 11 AND rn <= 20;
 
 row_3] emp 테이블에서 사원이름으로 오름차순 정렬하고 11~14번에 해당하는 순번,사원번호,이름 출력

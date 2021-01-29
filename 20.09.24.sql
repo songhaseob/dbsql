@@ -216,6 +216,10 @@ SELECT deptno,job,sum(sal + NVL(comm,0))SAL
 FROM emp
 GROUP BY ROLLUP(deptno,job);
 
+SELECT deptno,job,sum(sal + NVL(comm,0))sal
+FROM emp
+GROUP BY ROLLUP(deptno,job);
+
 AD4]
 SELECT dept.dname,emp.job, sum(emp.sal + NVL(comm,0))sal
 FROM emp,dept
